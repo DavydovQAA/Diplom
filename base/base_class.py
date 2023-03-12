@@ -1,6 +1,4 @@
 
-
-
 class Base():
 
     def __init__(self, driver):
@@ -9,4 +7,7 @@ class Base():
     def get_current_url(self):
         get_url = self.driver.current_url
         print("Current url " + get_url)
+
+    def scroll(self):
+        self.driver.execute_script('window.scrollTo(0,600)')
 

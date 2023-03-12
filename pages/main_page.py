@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -74,6 +76,7 @@ class Main_page(Base):
     def authorization(self):
         self.driver.get(self.url)
         self.driver.maximize_window()
+        self.get_current_url()
         self.click_authorization_button()
         self.click_entrance_with_password()
         self.input_email('ghostinside80@gmail.com')
@@ -81,4 +84,7 @@ class Main_page(Base):
         self.click_entrance_button()
 
     def select_smartphones_and_photo_equipment_catalog(self):
+        time.sleep(10)
         self.click_smartphones_and_photo_equipment_catalog()
+        self.get_current_url()
+
