@@ -72,7 +72,7 @@ class Smartphones_page(Base):
 
     def buy_product_by_filter(self):
         self.get_current_url()
-        self.assert_word(self.get_main_word(), 'Смартфоны')
+        self.assert_word(self.get_main_word(), 'Смартфоны')   # Выбираем товар по фильтрам, покупаем и переходим в корзину
         self.click_rating_button()
         self.scroll()
         self.write_price()

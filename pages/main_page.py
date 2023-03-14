@@ -73,7 +73,7 @@ class Main_page(Base):
 
     # Methods
 
-    def authorization(self):
+    def authorization(self):                                 # Заходим в учетную запись
         self.driver.get(self.url)
         self.driver.maximize_window()
         self.get_current_url()
@@ -83,7 +83,7 @@ class Main_page(Base):
         self.input_password('shop1234')
         self.click_entrance_button()
 
-    def select_smartphones_and_photo_equipment_catalog(self):
+    def select_smartphones_and_photo_equipment_catalog(self):   # Выбираем каталог 'Смартфоны и Фототехника'
         time.sleep(10)
         self.click_smartphones_and_photo_equipment_catalog()
         self.get_current_url()

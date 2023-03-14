@@ -23,20 +23,15 @@ class Cart_page(Base):
     def get_main_word(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.main_word)))
 
-
-
     # Actions
 
     def click_checkout_button(self):
         self.get_checkout_button().click()
         print('Checking Purchases')
 
-
-
     # Methods
 
     def checking_purchases(self):
         self.get_current_url()
-        self.assert_word(self.get_main_word(), 'Корзина')
+        self.assert_word(self.get_main_word(), 'Корзина')  # Кликаем 'Перейти к оформлению'
         self.click_checkout_button()
-

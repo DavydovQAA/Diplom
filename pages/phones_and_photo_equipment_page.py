@@ -27,6 +27,6 @@ class Smartphones_and_photo_equipment_page(Base):
 
     # Methods
 
-    def select_smartphones_category(self):
+    def select_smartphones_category(self):   # Выбираем раздел 'Смартфоны'
         self.get_current_url()
         self.click_smartphones_category()
