@@ -1,5 +1,5 @@
 import time
-
+import allure
 from conftest import driver
 from pages.cart_page import Cart_page
 from pages.checkout_main_page import Checkout_main
@@ -8,6 +8,7 @@ from pages.phones_and_photo_equipment_page import Smartphones_and_photo_equipmen
 from pages.smartphones_page import Smartphones_page
 
 
+@allure.description('Test buy product')
 def test_buy_product(set_up, set_group):
     print("Start Test")
     mp = Main_page(driver)

@@ -1,5 +1,6 @@
 import time
 
+import allure
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -72,14 +73,15 @@ class Smartphones_page(Base):
     # Methods
 
     def buy_product_by_filter(self):
-        Logger.add_start_step(method='buy_product_by_filter')
-        self.get_current_url()
-        self.assert_word(self.get_main_word(), 'Смартфоны')   # Выбираем товар по фильтрам, покупаем и переходим в корзину
-        self.click_rating_button()
-        self.scroll()
-        self.write_price()
-        self.click_apply_button()
-        self.buy_phone()
-        time.sleep(3)
-        self.click_cart()
-        Logger.add_end_step(url=self.driver.current_url, method='buy_product_by_filter')
+        with allure.step('Buy Product by filter'):
+            Logger.add_start_step(method='buy_product_by_filter')
+            self.get_current_url()
+            self.assert_word(self.get_main_word(), 'Смартфоны')   # Выбираем товар по фильтрам, покупаем и переходим в корзину
+            self.click_rating_button()
+            self.scroll()
+            self.write_price()
+            self.click_apply_button()
+            self.buy_phone()
+            time.sleep(3)
+            self.click_cart()
+            Logger.add_end_step(url=self.driver.current_url, method='buy_product_by_filter')

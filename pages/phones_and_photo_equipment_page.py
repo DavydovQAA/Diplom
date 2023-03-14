@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -30,8 +31,9 @@ class Smartphones_and_photo_equipment_page(Base):
     # Methods
 
     def select_smartphones_category(self):   # Выбираем раздел 'Смартфоны'
-        Logger.add_start_step(method='select_smartphones_category')
-        self.get_current_url()
-        self.click_smartphones_category()
-        Logger.add_end_step(url=self.driver.current_url, method='select_smartphones_category')
+        with allure.step('Select Smartphones Category'):
+            Logger.add_start_step(method='select_smartphones_category')
+            self.get_current_url()
+            self.click_smartphones_category()
+            Logger.add_end_step(url=self.driver.current_url, method='select_smartphones_category')
 
