@@ -6,6 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 
 from base.base_class import Base
+from logger import Logger
 
 
 class Smartphones_page(Base):
@@ -71,6 +72,7 @@ class Smartphones_page(Base):
     # Methods
 
     def buy_product_by_filter(self):
+        Logger.add_start_step(method='buy_product_by_filter')
         self.get_current_url()
         self.assert_word(self.get_main_word(), 'Смартфоны')   # Выбираем товар по фильтрам, покупаем и переходим в корзину
         self.click_rating_button()
@@ -80,3 +82,4 @@ class Smartphones_page(Base):
         self.buy_phone()
         time.sleep(3)
         self.click_cart()
+        Logger.add_end_step(url=self.driver.current_url, method='buy_product_by_filter')

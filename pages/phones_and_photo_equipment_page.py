@@ -4,6 +4,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from base.base_class import Base
 from selenium.webdriver.support import expected_conditions as EC
 
+from logger import Logger
+
 
 class Smartphones_and_photo_equipment_page(Base):
     def __init__(self, driver):
@@ -28,5 +30,8 @@ class Smartphones_and_photo_equipment_page(Base):
     # Methods
 
     def select_smartphones_category(self):   # Выбираем раздел 'Смартфоны'
+        Logger.add_start_step(method='select_smartphones_category')
         self.get_current_url()
         self.click_smartphones_category()
+        Logger.add_end_step(url=self.driver.current_url, method='select_smartphones_category')
+

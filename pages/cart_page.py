@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from base.base_class import Base
+from logger import Logger
 
 
 class Cart_page(Base):
@@ -32,6 +33,9 @@ class Cart_page(Base):
     # Methods
 
     def checking_purchases(self):
+        Logger.add_start_step(method='checking_purchases')
         self.get_current_url()
-        self.assert_word(self.get_main_word(), 'Корзина')  # Кликаем 'Перейти к оформлению'
+        self.assert_word(self.get_main_word(), 'Корзина')      # Кликаем 'Перейти к оформлению'
         self.click_checkout_button()
+        Logger.add_end_step(url=self.driver.current_url, method='checking_purchases')
+

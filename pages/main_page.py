@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from base.base_class import Base
+from logger import Logger
 
 
 class Main_page(Base):
@@ -73,7 +74,8 @@ class Main_page(Base):
 
     # Methods
 
-    def authorization(self):                                 # Заходим в учетную запись
+    def authorization(self):  # Заходим в учетную запись
+        Logger.add_start_step(method='authorization')
         self.driver.get(self.url)
         self.driver.maximize_window()
         self.get_current_url()
@@ -82,9 +84,11 @@ class Main_page(Base):
         self.input_email('ghostinside80@gmail.com')
         self.input_password('shop1234')
         self.click_entrance_button()
+        Logger.add_end_step(url=self.driver.current_url, method='authorization')
 
-    def select_smartphones_and_photo_equipment_catalog(self):   # Выбираем каталог 'Смартфоны и Фототехника'
+    def select_smartphones_and_photo_equipment_catalog(self):  # Выбираем каталог 'Смартфоны и Фототехника'
+        Logger.add_start_step(method='select_smartphones_and_photo_equipment_catalog')
         time.sleep(10)
         self.click_smartphones_and_photo_equipment_catalog()
         self.get_current_url()
-
+        Logger.add_end_step(url=self.driver.current_url, method='select_smartphones_and_photo_equipment_catalog')

@@ -1,8 +1,8 @@
 import time
 
-from base.checkout_main_page import Checkout_main
 from conftest import driver
 from pages.cart_page import Cart_page
+from pages.checkout_main_page import Checkout_main
 from pages.main_page import Main_page
 from pages.phones_and_photo_equipment_page import Smartphones_and_photo_equipment_page
 from pages.smartphones_page import Smartphones_page
