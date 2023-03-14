@@ -14,33 +14,69 @@ class Smartphones_page(Base):
         self.driver = driver
 
     # Locators
-    price_locator = "//input[@value='a0c869ef13542a4a63d4ee843c977939']"
-    stock_locator = "//input[@value='rassrockailivygoda']"
-    manufacturer_apple_locator = "//input[@value='apple']"
-    memory_locator = "//input[@value='32tg']"
-    release_year_locator = "//input[@value='o8r3o']"
-    value_of_ram_locator = "//div[@data-id='f[9a8]']"
-    ram_8gb_locator = "//input[@value='i2ft']"
-    model_locator = "//i[@class='ui-collapse__icon ui-collapse__icon_left ui-collapse__icon_down']"
-    model_12_locator = "//input[@value='vqmuu']"
-    apply_button = "//button[@data-role='filters-submit']"
+    rating_locator = "//div[@data-id='rating']"
+
+    apply_button_locator = "//button[@data-role='filters-submit']"
+
+    field_price_locator = "//input[@placeholder='от 2 999']"
+
+    buy_phone_locator = '''(//button[text()="Купить"][preceding::span[contains(text(), '6.67" Смартфон Honor 70 256 ГБ зеленый [ядер - 8x(1.9 ГГц, 2.2 ГГц, 2.5 ГГц), 8 Гб, 2 SIM, OLED, 2400x1080, камера 54+50+2 Мп, NFC, 5G, GPS, 4800 мА*ч]')]])[1]'''
+
+    cart_locator = "//a[@data-commerce-target='CART']"
+
+    main_word = "//h1[text()='Смартфоны']"
 
     # Getters
+    def get_input_price(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.field_price_locator)))
 
-    def get_price_button(self):
-
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.price_locator)))
+    def get_main_word(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.main_word)))
 
     # Actions
 
-    def click_price_button(self):
-        price_button = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.price_locator)))
+    def click_rating_button(self):
+        rating_button = WebDriverWait(self.driver, 30).until(
+            EC.element_to_be_clickable((By.XPATH, self.rating_locator)))
         action = ActionChains(self.driver)
-        action.move_to_element(price_button)
-        self.get_price_button().click()
-        print("Click Price Button")
+        action.move_to_element(rating_button).perform()
+        rating_button.click()
+        print('Click Rating button')
 
+    def click_apply_button(self):
+        apply_button = WebDriverWait(self.driver, 30).until(
+            EC.element_to_be_clickable((By.XPATH, self.apply_button_locator)))
+        action = ActionChains(self.driver)
+        action.move_to_element(apply_button).perform()
+        apply_button.click()
+        print('Click Apply button')
+
+    def write_price(self):
+        self.get_input_price().send_keys('40000')
+        print('Write Price')
+
+    def buy_phone(self):
+        buy_phone = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.buy_phone_locator)))
+        action = ActionChains(self.driver)
+        action.move_to_element(buy_phone).perform()
+        buy_phone.click()
+        print('Buy Phone')
+
+    def click_cart(self):
+        cart = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.cart_locator)))
+        action = ActionChains(self.driver)
+        action.move_to_element(cart).perform()
+        cart.click()
+        print('Click Cart')
     # Methods
 
-    def select_product_by_filter(self):
-        self.click_price_button()
+    def buy_product_by_filter(self):
+        self.get_current_url()
+        self.assert_word(self.get_main_word(), 'Смартфоны')
+        self.click_rating_button()
+        self.scroll()
+        self.write_price()
+        self.click_apply_button()
+        self.buy_phone()
+        time.sleep(3)
+        self.click_cart()
