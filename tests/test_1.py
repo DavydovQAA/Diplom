@@ -8,7 +8,7 @@ from pages.phones_and_photo_equipment_page import Smartphones_and_photo_equipmen
 from pages.smartphones_page import Smartphones_page
 
 
-def test_buy_product():
+def test_buy_product(set_up, set_group):
     print("Start Test")
     mp = Main_page(driver)
     mp.authorization()
