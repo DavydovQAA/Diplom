@@ -2,18 +2,13 @@ import time
 
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from base.base_class import Base
+from base.base_page import BasePage
 from logger import Logger
 
 
-class Main_page(Base):
+class MainPage(BasePage):
     url = 'https://www.dns-shop.ru/'
-
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
 
     # Locators
 
@@ -27,24 +22,22 @@ class Main_page(Base):
     # Getters
 
     def get_authorization_button(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.authorization_locator)))
+        return self.wait().until(EC.element_to_be_clickable((By.XPATH, self.authorization_locator)))
 
     def get_entrance_with_password(self):
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.entrance_with_password_locator)))
+        return self.wait().until(EC.element_to_be_clickable((By.XPATH, self.entrance_with_password_locator)))
 
     def get_email(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.email_locator)))
+        return self.wait().until(EC.element_to_be_clickable((By.XPATH, self.email_locator)))
 
     def get_password(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.password_locator)))
+        return self.wait().until(EC.element_to_be_clickable((By.XPATH, self.password_locator)))
 
     def get_entrance_button(self):
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.entrance_button_locator)))
+        return self.wait().until(EC.element_to_be_clickable((By.XPATH, self.entrance_button_locator)))
 
     def get_select_smartphones_and_photo_equipment_catalog(self):
-        return WebDriverWait(self.driver, 30).until(
+        return self.wait().until(
             EC.element_to_be_clickable((By.XPATH, self.smartphones_and_photo_equipment_catalog_locator)))
 
     # Actions

@@ -2,16 +2,11 @@ import time
 
 import allure
 
-from base.base_class import Base
+from base.base_page import BasePage
 from logger import Logger
 
 
-class Checkout_main(Base):
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
-
-    # Methods
+class CheckoutMain(BasePage):
 
     def finish(self):
         with allure.step('Checking Final Page'):
@@ -21,4 +16,3 @@ class Checkout_main(Base):
             self.assert_url("https://www.dns-shop.ru/checkout-main/")
             self.get_screenshot()
             Logger.add_end_step(url=self.driver.current_url, method='finish')
-

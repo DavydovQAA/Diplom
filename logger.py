@@ -1,12 +1,17 @@
 import datetime
 import os
 
+DIR = "logs"
 
-class Logger():
-    file_name = f"logs/log_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".log"
+
+class Logger:
+    file_name = f"{DIR}/log_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".log"
 
     @classmethod
     def write_log_to_file(cls, data: str):
+        if not os.path.exists(DIR):
+            os.makedirs(DIR)
+
         with open(cls.file_name, 'a', encoding='utf=8') as logger_file:
             logger_file.write(data)
 
@@ -24,7 +29,6 @@ class Logger():
 
     @classmethod
     def add_end_step(cls, url: str, method: str):
-
         data_to_add = f"End time: {str(datetime.datetime.now())}\n"
         data_to_add += f"End name method: {method}\n"
         data_to_add += f"URL: {url}\n"

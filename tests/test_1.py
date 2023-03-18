@@ -1,32 +1,31 @@
 import time
 import allure
-from conftest import driver
-from pages.cart_page import Cart_page
-from pages.checkout_main_page import Checkout_main
-from pages.main_page import Main_page
-from pages.phones_and_photo_equipment_page import Smartphones_and_photo_equipment_page
-from pages.smartphones_page import Smartphones_page
+
+from pages.cart_page import CartPage
+from pages.checkout_main_page import CheckoutMain
+from pages.main_page import MainPage
+from pages.phones_and_photo_equipment_page import SmartphonesAndPhotoEquipmentPage
+from pages.smartphones_page import SmartphonesPage
 
 
 @allure.description('Test buy product')
-def test_buy_product(set_up, set_group):
+def test_buy_product(driver):
     print("Start Test")
-    mp = Main_page(driver)
+    mp = MainPage(driver)
     mp.authorization()
     mp.select_smartphones_and_photo_equipment_catalog()
 
-    pap = Smartphones_and_photo_equipment_page(driver)
+    pap = SmartphonesAndPhotoEquipmentPage(driver)
     pap.select_smartphones_category()
 
-    sp = Smartphones_page(driver)
+    sp = SmartphonesPage(driver)
     sp.buy_product_by_filter()
 
-    cp = Cart_page(driver)
+    cp = CartPage(driver)
     cp.checking_purchases()
 
-    cmp = Checkout_main(driver)
+    cmp = CheckoutMain(driver)
+    time.sleep(30)
     cmp.finish()
 
     time.sleep(10)
-
-    driver.quit()

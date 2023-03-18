@@ -1,19 +1,15 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+CHROME_VERSION = "111.0.5563.64"
 
-@pytest.fixture(scope='module')
-def set_up():
-    print('Start Test')
-    yield
-    print('Finish Test')
 
-@pytest.fixture(scope='module')
-def set_group():
-    print('Enter System')
-    yield
-    print('Exit System')
-
+@pytest.fixture(autouse=True)
+def driver():
+    service = ChromeService(ChromeDriverManager(CHROME_VERSION).install())
+    browser = webdriver.Chrome(service=service)
+    browser.maximize_window()
+    yield browser
+    browser.quit()

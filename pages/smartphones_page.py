@@ -3,18 +3,13 @@ import time
 import allure
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 
-from base.base_class import Base
+from base.base_page import BasePage
 from logger import Logger
 
 
-class Smartphones_page(Base):
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
-
+class SmartphonesPage(BasePage):
     # Locators
     rating_locator = "//div[@data-id='rating']"
 
@@ -30,24 +25,22 @@ class Smartphones_page(Base):
 
     # Getters
     def get_input_price(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.field_price_locator)))
+        return self.wait().until(EC.element_to_be_clickable((By.XPATH, self.field_price_locator)))
 
     def get_main_word(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.main_word)))
+        return self.wait().until(EC.element_to_be_clickable((By.XPATH, self.main_word)))
 
     # Actions
 
     def click_rating_button(self):
-        rating_button = WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.rating_locator)))
+        rating_button = self.wait().until(EC.element_to_be_clickable((By.XPATH, self.rating_locator)))
         action = ActionChains(self.driver)
         action.move_to_element(rating_button).perform()
         rating_button.click()
         print('Click Rating button')
 
     def click_apply_button(self):
-        apply_button = WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.apply_button_locator)))
+        apply_button = self.wait().until(EC.element_to_be_clickable((By.XPATH, self.apply_button_locator)))
         action = ActionChains(self.driver)
         action.move_to_element(apply_button).perform()
         apply_button.click()
@@ -58,25 +51,28 @@ class Smartphones_page(Base):
         print('Write Price')
 
     def buy_phone(self):
-        buy_phone = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.buy_phone_locator)))
+        buy_phone = self.wait().until(EC.element_to_be_clickable((By.XPATH, self.buy_phone_locator)))
         action = ActionChains(self.driver)
         action.move_to_element(buy_phone).perform()
         buy_phone.click()
         print('Buy Phone')
 
     def click_cart(self):
-        cart = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.cart_locator)))
+        cart = self.wait().until(EC.element_to_be_clickable((By.XPATH, self.cart_locator)))
         action = ActionChains(self.driver)
         action.move_to_element(cart).perform()
         cart.click()
         print('Click Cart')
+
     # Methods
 
     def buy_product_by_filter(self):
         with allure.step('Buy Product by filter'):
             Logger.add_start_step(method='buy_product_by_filter')
             self.get_current_url()
-            self.assert_word(self.get_main_word(), 'Смартфоны')   # Выбираем товар по фильтрам, покупаем и переходим в корзину
+            # Выбираем товар по фильтрам, покупаем и переходим в корзину
+            self.assert_word(self.get_main_word(), 'Смартфоны')
+
             self.click_rating_button()
             self.scroll()
             self.write_price()
